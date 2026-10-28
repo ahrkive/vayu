@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Exo 2", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Orbitron", "Exo 2", ui-sans-serif, sans-serif;
+    --font-mono: "Share Tech Mono", ui-monospace, monospace;
+    --font-gauge: "B612 Mono", ui-monospace, monospace;
+
+    --color-night-950: #04060f;
+    --color-night-900: #070b1a;
+    --color-night-800: #0d1428;
+}
+
+/* Hide default cursor on desktop devices with fine pointers */
+@media (pointer: fine) {
+    *,
+    *::before,
+    *::after,
+    html,
+    body,
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    label {
+        cursor: none !important;
+    }
+}
+
+html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    /* The altitude gauge replaces the browser scrollbar (scrolling still works) */
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide custom scroll bar / altitude indicator on mobile and touch devices */
+@media (pointer: coarse), (max-width: 767px) {
+    #altitude-indicator {
+        display: none !important;
+    }
+}
+
+body {
+    @apply bg-night-950 font-sans text-slate-100 antialiased;
+    background-image:
+        radial-gradient(
+            ellipse 70% 55% at 75% 25%,
+            rgb(56 189 248 / 0.1),
+            transparent 65%
+        ),
+        radial-gradient(
+            ellipse 55% 45% at 10% 90%,
+            rgb(99 102 241 / 0.07),
+            transparent 65%
+        );
+    background-attachment: fixed;
+}
+
+/* Dimmed checkered blueprint grid behind everything */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgb(148 163 184 / 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(148 163 184 / 0.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(
+        ellipse 90% 75% at 50% 55%,
+        black 40%,
+        transparent 90%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
